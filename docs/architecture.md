@@ -30,20 +30,20 @@ OctoFit Tracker is a three-tier application for a school fitness program. The st
 
 Record your plan here before editing code.
 
-- Presentation tier decision:
-- Logic tier decision:
-- Data tier decision:
-- Activity tracking approach:
-- Team management approach:
-- Leaderboard approach:
-- Workout suggestions approach:
+- Presentation tier decision: Use React route components that consume the shared API client and explicitly render loading, empty, error, and success states.
+- Logic tier decision: Keep Express routes thin and implement validation and business behavior in the OctoFit service functions.
+- Data tier decision: Define required Mongoose fields and defaults in User, Team, Activity, and Workout schemas, while preserving unrelated and existing records during seeding.
+- Activity tracking approach: Validate user/team IDs and references in the service, calculate points from submitted minutes, and record the creation time.
+- Team management approach: Reject missing names, validate mascot/member input, and create teams with an empty member array by default.
+- Leaderboard approach: Aggregate activity points by team, join team names, sort descending, and assign 1-based ranks.
+- Workout suggestions approach: Match the user's fitness goal or recent activity to workout focus, with a deliberate 404 for unknown emails.
 
 ## Test plan
 
 Record the commands you run and what each failure means.
 
-- Data-tier command: `npm run test:data --prefix octofit-tracker/backend`
-- API command: `npm run test:api --prefix octofit-tracker/backend`
-- Frontend command: `npm test --prefix octofit-tracker/frontend`
-- Backend build command: `npm run build --prefix octofit-tracker/backend`
-- Frontend build command: `npm run build --prefix octofit-tracker/frontend`
+- Data-tier command: `npm run test:data --prefix octofit-tracker/backend` - Red: missing Mongoose validation; green: all 5 data contract tests pass.
+- API command: `npm run test:api --prefix octofit-tracker/backend` - Red: placeholder activity/team logic, empty leaderboard, and incorrect workouts; green: all 4 API contract tests pass.
+- Frontend command: `npm test --prefix octofit-tracker/frontend` - Red: placeholder presentation; green: all 15 presentation contract tests pass.
+- Backend build command: `npm run build --prefix octofit-tracker/backend` - Passed after implementation.
+- Frontend build command: `npm run build --prefix octofit-tracker/frontend` - Passed after implementation.
